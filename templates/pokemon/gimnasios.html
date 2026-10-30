@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gimnasios Pokémon</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 30px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 25px;
+            font-size: 35px;
+        }
+
+        /* MENU DE NAVEGACION */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            background: #333;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: #e3350d;
+            transform: translateY(-3px);
+        }
+
+        /* CONTENEDOR */
+        .contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        /* TARJETAS */
+        .tarjeta {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transition: 0.3s;
+            border-top: 5px solid #e3350d;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+        }
+
+        .tarjeta h2 {
+            text-align: center;
+            color: #e3350d;
+            margin-bottom: 20px;
+        }
+
+        .dato {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .dato strong {
+            color: #333;
+        }
+
+        .medalla {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .vacio {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* BOTON VOLVER */
+        .volver {
+            display: block;
+            width: fit-content;
+            margin: 35px auto;
+            background: #333;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .volver:hover {
+            background: #e3350d;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Gimnasios Pokémon</h1>
+
+    <!-- MENU DE NAVEGACION -->
+    <nav>
+        <a href="{% url 'inicio' %}">Pokémon</a>
+
+        <a href="{% url 'lista_gimnasios' %}">Gimnasios</a>
+
+        <a href="{% url 'lista_entrenadores' %}">Entrenadores</a>
+    </nav>
+
+    <!-- CONTENEDOR DE GIMNASIOS -->
+    <div class="contenedor">
+
+        {% for gimnasio in gimnasios %}
+
+        <div class="tarjeta">
+
+            <h2>{{ gimnasio.lider_del_gym }}</h2>
+
+            <div class="dato">
+                <strong>Naturaleza:</strong>
+                {{ gimnasio.naturaleza }}
+            </div>
+
+            <div class="dato">
+                <strong>Elemento:</strong>
+                {{ gimnasio.elemento }}
+            </div>
+
+            <div class="medalla">
+                🏅 <strong>Medallas:</strong>
+                {{ gimnasio.medallas }}
+            </div>
+
+        </div>
+
+        {% empty %}
+
+            <p class="vacio">No hay gimnasios registrados.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <a href="{% url 'inicio' %}" class="volver">
+        Volver a Pokémon
+    </a>
+
+</body>
+</html>

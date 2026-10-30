@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrenadores Pokémon</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 30px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 25px;
+            font-size: 35px;
+        }
+
+        /* MENU */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            background: #333;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: #e3350d;
+            transform: translateY(-3px);
+        }
+
+        /* CONTENEDOR */
+        .contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* TARJETAS */
+        .tarjeta {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transition: 0.3s;
+            border-top: 5px solid #e3350d;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+        }
+
+        .tarjeta h2 {
+            color: #e3350d;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .documento {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tarjeta h3 {
+            color: #333;
+            margin-top: 18px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .tarjeta p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .pokemon {
+            background: #e8f4fd;
+            padding: 8px;
+            border-radius: 7px;
+            margin-bottom: 7px;
+        }
+
+        .medalla {
+            background: #fff3cd;
+            padding: 8px;
+            border-radius: 7px;
+            margin-bottom: 7px;
+        }
+
+        .vacio {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* BOTON VOLVER */
+        .volver {
+            display: block;
+            width: fit-content;
+            margin: 35px auto;
+            background: #333;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .volver:hover {
+            background: #e3350d;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Entrenadores Pokémon</h1>
+
+    <!-- MENU DE NAVEGACION -->
+    <nav>
+        <a href="{% url 'inicio' %}">Pokémon</a>
+        <a href="{% url 'lista_gimnasios' %}">Gimnasios</a>
+        <a href="{% url 'lista_entrenadores' %}">Entrenadores</a>
+    </nav>
+
+    <!-- CONTENEDOR DE ENTRENADORES -->
+    <div class="contenedor">
+
+        {% for entrenador in entrenadores %}
+
+        <div class="tarjeta">
+
+            <h2>{{ entrenador.nombre }} {{ entrenador.apellido }}</h2>
+
+            <div class="documento">
+                <strong>Documento:</strong>
+                {{ entrenador.id_documento }}
+            </div>
+
+            <h3>Pokémon asignados</h3>
+
+            {% for pokemon in entrenador.pokemones.all %}
+                <div class="pokemon">
+                    {{ pokemon.nombre }}
+                </div>
+            {% empty %}
+                <p class="vacio">No tiene Pokémon asignados.</p>
+            {% endfor %}
+
+            <h3>Medallas obtenidas</h3>
+
+            {% for gimnasio in entrenador.medallas.all %}
+                <div class="medalla">
+                    🏅 {{ gimnasio.lider_del_gym }}
+                </div>
+            {% empty %}
+                <p class="vacio">No tiene medallas.</p>
+            {% endfor %}
+
+        </div>
+
+        {% empty %}
+
+            <p>No hay entrenadores registrados.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <a href="{% url 'inicio' %}" class="volver">
+        Volver a Pokémon
+    </a>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pokémon World</title>
+
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+
+<body>
+
+<header>
+    <h1>⚡ POKÉMON WORLD</h1>
+    <p>Explora, descubre y conviértete en maestro Pokémon</p>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#pokemones">Pokémon</a>
+        <a href="#gimnasios">Gimnasios</a>
+        <a href="#entrenadores">Entrenadores</a>
+        <a href="/admin/">Administración</a>
+    </nav>
+</header>
+
+<section class="hero" id="inicio">
+    <h2>¡Bienvenido al mundo Pokémon!</h2>
+    <p>Descubre criaturas increíbles y conoce a sus entrenadores.</p>
+    <a href="#pokemones" class="boton">Explorar Pokémon</a>
+</section>
+
+<section class="estadisticas">
+    <div>
+        <h2>{{ pokemones|length }}</h2>
+        <p>Pokémon registrados</p>
+    </div>
+
+    <div>
+        <h2>{{ gimnasios|length }}</h2>
+        <p>Gimnasios registrados</p>
+    </div>
+
+    <div>
+        <h2>{{ entrenadores|length }}</h2>
+        <p>Entrenadores registrados</p>
+    </div>
+</section>
+
+<section class="seccion" id="pokemones">
+    <h2>⚡ Catálogo Pokémon</h2>
+
+    <div class="contenedor">
+
+        {% for pokemon in pokemones %}
+        <article class="tarjeta">
+
+            {% if pokemon.imagen %}
+                <img src="{{ pokemon.imagen }}" alt="{{ pokemon.nombre }}">
+            {% endif %}
+
+            <h3>{{ pokemon.nombre }}</h3>
+
+            <p><strong>Peso:</strong> {{ pokemon.peso }} kg</p>
+
+            <p><strong>Elemento:</strong> {{ pokemon.elemento }}</p>
+
+            <p><strong>Habilidades:</strong> {{ pokemon.habilidades }}</p>
+
+            <p><strong>Naturaleza:</strong> {{ pokemon.naturaleza }}</p>
+
+            <p>{{ pokemon.descripcion }}</p>
+
+        </article>
+
+        {% empty %}
+        <p>No hay Pokémon registrados.</p>
+        {% endfor %}
+
+    </div>
+</section>
+
+<section class="seccion" id="gimnasios">
+    <h2>🏆 Gimnasios Pokémon</h2>
+
+    <div class="contenedor">
+
+        {% for gimnasio in gimnasios %}
+        <article class="tarjeta">
+
+            <h3>{{ gimnasio.lider_del_gym }}</h3>
+
+            <p><strong>Elemento:</strong> {{ gimnasio.elemento }}</p>
+
+            <p><strong>Naturaleza:</strong> {{ gimnasio.naturaleza }}</p>
+
+            <p><strong>Medallas:</strong> {{ gimnasio.medallas }}</p>
+
+        </article>
+
+        {% empty %}
+        <p>No hay gimnasios registrados.</p>
+        {% endfor %}
+
+    </div>
+</section>
+
+<section class="seccion" id="entrenadores">
+    <h2>🎮 Entrenadores Pokémon</h2>
+
+    <div class="contenedor">
+
+        {% for entrenador in entrenadores %}
+        <article class="tarjeta">
+
+            <h3>{{ entrenador.nombre }} {{ entrenador.apellido }}</h3>
+
+            <p><strong>Documento:</strong> {{ entrenador.id_documento }}</p>
+
+            <h4>Pokémon asignados</h4>
+
+            <ul>
+                {% for pokemon in entrenador.pokemones.all %}
+                    <li>{{ pokemon.nombre }}</li>
+                {% empty %}
+                    <li>Sin Pokémon asignados</li>
+                {% endfor %}
+            </ul>
+
+            <h4>Gimnasios asignados</h4>
+
+            <ul>
+                {% for gimnasio in entrenador.gimnasios.all %}
+                    <li>{{ gimnasio.lider_del_gym }}</li>
+                {% empty %}
+                    <li>Sin gimnasios asignados</li>
+                {% endfor %}
+            </ul>
+
+        </article>
+
+        {% empty %}
+        <p>No hay entrenadores registrados.</p>
+        {% endfor %}
+
+    </div>
+</section>
+
+<footer>
+    <h3>Pokémon World</h3>
+    <p>Proyecto desarrollado con Django y PostgreSQL</p>
+</footer>
+
+</body>
+</html>

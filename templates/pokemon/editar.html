@@ -1,0 +1,31 @@
+
+<h1>Editar Pokémon</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ pokemon.nombre }}" required>
+
+    <label>Peso:</label>
+    <input type="number" step="any" name="peso" value="{{ pokemon.peso }}" required>
+
+    <label>Naturaleza:</label>
+    <input type="text" name="naturaleza" value="{{ pokemon.naturaleza }}">
+
+    <label>Elemento:</label>
+    <input type="text" name="elemento" value="{{ pokemon.elemento }}">
+
+    <label>Habilidades:</label>
+    <textarea name="habilidades">{{ pokemon.habilidades }}</textarea>
+
+    <label>Descripción:</label>
+    <textarea name="descripcion">{{ pokemon.descripcion }}</textarea>
+
+    <label>Imagen:</label>
+    <input type="url" name="imagen" value="{{ pokemon.imagen|default:'' }}">
+
+    <button type="submit">Guardar cambios</button>
+</form>
+
+<a href="{% url 'lista_pokemones' %}">Volver</a>

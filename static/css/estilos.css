@@ -1,0 +1,170 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f5fa;
+    color: #222;
+}
+
+header {
+    background: #e53935;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+nav {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #ffeb3b;
+}
+
+.hero {
+    background: linear-gradient(135deg, #172d65, #477bce);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.boton {
+    background: #ffcb35;
+    color: #222;
+    padding: 15px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.estadisticas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.estadisticas div {
+    background: white;
+    padding: 25px;
+    width: 200px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px #0002;
+}
+
+.estadisticas h2 {
+    color: #e53935;
+    font-size: 35px;
+}
+
+.seccion {
+    padding: 55px 7%;
+    text-align: center;
+}
+
+.seccion h2 {
+    color: #263b80;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.tarjeta {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px #0002;
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.tarjeta:hover {
+    transform: translateY(-7px);
+}
+
+.tarjeta img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.tarjeta h3 {
+    color: #e53935;
+    margin: 12px 0;
+    font-size: 22px;
+}
+
+.tarjeta p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.tarjeta h4 {
+    color: #263b80;
+    margin-top: 15px;
+}
+
+.tarjeta ul {
+    list-style-position: inside;
+    margin-top: 10px;
+}
+
+footer {
+    background: #263b80;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 28px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .seccion {
+        padding: 35px 5%;
+    }
+}

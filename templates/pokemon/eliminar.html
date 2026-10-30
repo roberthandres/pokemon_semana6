@@ -1,0 +1,11 @@
+
+<h1>Eliminar Pokémon</h1>
+
+<p>¿Estás seguro de eliminar a {{ pokemon.nombre }}?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+</form>
+
+<a href="{% url 'lista_pokemones' %}">Cancelar</a>
