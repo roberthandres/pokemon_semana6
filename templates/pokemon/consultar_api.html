@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Consultar Pokémon - PokéAPI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #e9eef5;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .contenedor {
+            max-width: 650px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #0002;
+        }
+
+        h1 {
+            color: #2455a4;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 12px;
+            width: 65%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 18px;
+            background: #2455a4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #17376d;
+        }
+
+        .resultado {
+            margin-top: 25px;
+        }
+
+        .resultado img {
+            width: 220px;
+            max-width: 100%;
+        }
+
+        .resultado p {
+            margin: 12px;
+            color: #333;
+        }
+
+        .error {
+            color: #c62828;
+            margin-top: 20px;
+        }
+
+        .acciones {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .acciones a {
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-editar {
+            background: #2455a4;
+        }
+
+        .btn-editar:hover {
+            background: #17376d;
+        }
+
+        .btn-eliminar {
+            background: #dc3545;
+        }
+
+        .btn-eliminar:hover {
+            background: #a71d2a;
+        }
+
+        .mensaje {
+            margin-top: 20px;
+            color: #777;
+        }
+
+        .volver {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 18px;
+            background: #2455a4;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>Buscador de Pokémon</h1>
+
+        <p>Consulta información de Pokémon utilizando PokéAPI.</p>
+
+        <br>
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="nombre"
+                placeholder="Ejemplo: pikachu"
+                value="{{ nombre }}"
+                required
+            >
+
+            <button type="submit">Buscar</button>
+
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if pokemon %}
+
+            <div class="resultado">
+
+                <h2>{{ pokemon.nombre }}</h2>
+
+                {% if pokemon.imagen %}
+                    <img
+                        src="{{ pokemon.imagen }}"
+                        alt="{{ pokemon.nombre }}"
+                    >
+                {% endif %}
+
+                <p>
+                    <strong>Peso:</strong>
+                    {{ pokemon.peso }} kg
+                </p>
+
+                <p>
+                    <strong>Altura:</strong>
+                    {{ pokemon.altura }} m
+                </p>
+
+                <p>
+                    <strong>Tipo:</strong>
+                    {{ pokemon.elementos|join:", " }}
+                </p>
+
+                <p>
+                    <strong>Habilidades:</strong>
+                    {{ pokemon.habilidades|join:", " }}
+                </p>
+
+                {% if pokemon.id %}
+
+                    <div class="acciones">
+
+                        <a
+                            href="{% url 'editar_pokemon' pokemon.id %}"
+                            class="btn-editar">
+                            Editar
+                        </a>
+
+                        <a
+                            href="{% url 'eliminar_pokemon' pokemon.id %}"
+                            class="btn-eliminar">
+                            Eliminar
+                        </a>
+
+                    </div>
+
+                {% else %}
+
+                    <p class="mensaje">
+                        Este Pokémon todavía no está registrado en tu Pokédex.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+        <a href="{% url 'inicio' %}" class="volver">
+            Volver a Mi Pokédex
+        </a>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el Pokémon</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 30px 15px;
+            text-align: center;
+        }
+
+        .contenedor {
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px #00000015;
+        }
+
+        h1 {
+            color: #2563eb;
+        }
+
+        .pokemon {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            filter: brightness(0);
+            margin: 15px auto;
+        }
+
+        .pokemon.revelado {
+            filter: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button, .volver {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover, .volver:hover {
+            background: #1d4ed8;
+        }
+
+        .mensaje {
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .acciones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedor">
+        <h1>🎮 Adivina el Pokémon</h1>
+        <p>Observa la silueta y escribe el nombre del Pokémon.</p>
+
+        {% if pokemon %}
+            <img
+                src="{{ pokemon.imagen }}"
+                alt="Silueta del Pokémon"
+                class="pokemon {% if terminado %}revelado{% endif %}"
+            >
+
+            {% if not terminado %}
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="nombre_correcto"
+                           value="{{ pokemon.nombre|lower }}">
+                    <input type="hidden" name="imagen"
+                           value="{{ pokemon.imagen }}">
+
+                    <input
+                        type="text"
+                        name="respuesta"
+                        placeholder="¿Qué Pokémon es?"
+                        required
+                        autocomplete="off"
+                    >
+
+                    <button type="submit">Responder</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if mensaje %}
+            <p class="mensaje">{{ mensaje }}</p>
+        {% endif %}
+
+        <div class="acciones">
+            <a href="{% url 'juego_pokemon' %}" class="volver">
+                {% if terminado or not pokemon %}
+                    Jugar otra vez
+                {% else %}
+                    Nuevo Pokémon
+                {% endif %}
+            </a>
+
+            <a href="{% url 'inicio' %}" class="volver">Volver a la Pokédex</a>
+        </div>
+    </div>
+</body>
+</html>

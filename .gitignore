@@ -1,10 +1,9 @@
 venv/
+venv313/
 env/
-.venv/
 __pycache__/
-*.pyc
-*.log
-.env
+*.py[cod]
 db.sqlite3
-media/
+.env
+.idea/
 .vscode/

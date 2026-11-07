@@ -1,11 +1,134 @@
 
-<h1>Eliminar Pokémon</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Pokémon</title>
 
-<p>¿Estás seguro de eliminar a {{ pokemon.nombre }}?</p>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<form method="POST">
-    {% csrf_token %}
-    <button type="submit">Sí, eliminar</button>
-</form>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #101827, #1e293b);
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-<a href="{% url 'lista_pokemones' %}">Cancelar</a>
+        .contenedor {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px 30px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .icono {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #f87171;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #cbd5e1;
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .nombre {
+            color: #facc15;
+            font-weight: bold;
+        }
+
+        form {
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #dc2626;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+
+        .cancelar {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #64748b;
+            border-radius: 10px;
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .cancelar:hover {
+            background: #334155;
+            color: #facc15;
+        }
+
+        @media (max-width: 480px) {
+            .contenedor {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <div class="icono">⚠️</div>
+
+        <h1>Eliminar Pokémon</h1>
+
+        <p>
+            ¿Estás seguro de eliminar a
+            <span class="nombre">{{ pokemon.nombre }}</span>?
+            Esta acción no se puede deshacer.
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Sí, eliminar</button>
+        </form>
+
+        <a href="{% url 'lista_pokemones' %}" class="cancelar">
+            Cancelar
+        </a>
+    </div>
+
+</body>
+</html>
